@@ -59,6 +59,8 @@ def get_tweets(user, tweets=None, retweets=False, notext=False, adddot=True, max
                     '.js-permalink')[0].attrs['data-conversation-id']
                 originaluserId = tweet.find(
                     '.js-original-tweet')[0].attrs['data-screen-name']
+                profileImage_small = tweet.find(".js-action-profile-avatar")[0].attrs['src']
+                profileImage = profileImage_small[:-10] + "400x400.jpg"
                 time = datetime.fromtimestamp(
                     int(tweet.find('._timestamp')[0].attrs['data-time-ms']) / 1000.0)
                 time = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -100,7 +102,7 @@ def get_tweets(user, tweets=None, retweets=False, notext=False, adddot=True, max
                             text += '.'
                     text = text.replace(' .', '.')
                     tweets.append({'tweetId': tweetId, 'time': time, 'user': user, 'originaluser': originaluserId,
-                                   'text': text, 'replies': replies, 'retweets': retweets, 'likes': likes,
+                        'profileimage': profileImage, 'text': text, 'replies': replies, 'retweets': retweets, 'likes': likes,
                                    'entries': {
                                        'hashtags': hashtags, 'emoji': emoji,
                                        'urls': urls,
